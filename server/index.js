@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 require('dotenv').config();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 const API_KEY = process.env.API_KEY;
 const axios = require('axios');
 const request = require('request');
@@ -27,6 +27,14 @@ app.post('/fetch-data', async (req, res) => {
   } catch (error) {
     res.status(500).send('Error fetching data');
   }
+});
+
+app.get("/*", function (req, res) {
+  res.sendFile(path.resolve(__dirname, "../index.html"), function (err) {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
 });
 
 app.listen(PORT, () => {
