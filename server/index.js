@@ -16,6 +16,7 @@ const {
 
 app.use('/', express.static(path.resolve(__dirname, '../build')));
 app.use(express.json());
+app.use(cors());
 
 app.get('/', (request, response) => {
   response.send('Hello World!');
@@ -90,7 +91,7 @@ app.post('/users', (req, res) => {
 app.post('/fetch-data', async (req, res) => {
   const ticker = req.body.ticker; // Get the ticker from the POST request body.
   const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${API_KEY}`;
-
+  console.log(ticker);
   try {
     const response = await axios.get(url, {
       headers: { 'User-Agent': 'request' },
@@ -98,6 +99,7 @@ app.post('/fetch-data', async (req, res) => {
     console.log(`Response:`, response.data);
     res.json(response.data);
   } catch (error) {
+    console.log(error);
     res.status(500).send('Error fetching data');
   }
 });
@@ -105,7 +107,7 @@ app.post('/fetch-data', async (req, res) => {
 app.get('/*', function (req, res) {
   res.sendFile(path.resolve(__dirname, '../index.html'), function (err) {
     if (err) {
-      res.status(500).send(err);
+      res.status(400).send(err);
     }
   });
 });
