@@ -7,7 +7,8 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await signInWithGoogle().then(async (data) => {
-      navigate('/home');
+        console.log(data);
+        navigate('/home');
     });
   };
   return (
