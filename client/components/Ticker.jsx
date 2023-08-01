@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 export default function Ticker(props) {
-    console.log(props);
+  const { tickerData } = props;
+  useEffect(() => { 
+    console.log(tickerData);
+  }, [])
   return (
-    <div>Ticker</div>
+    <div>{JSON.stringify(tickerData)}</div>
+
   )
 }
