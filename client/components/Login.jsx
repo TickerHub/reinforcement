@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signInWithGoogle } from '../firebase.js';
-import Logo from '../../images/TickerHub-white (1).png';
+import Logo from '../../images/TickerHub-white.png';
 
 export default function Login() {
   const navigate = useNavigate();
