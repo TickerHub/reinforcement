@@ -3,13 +3,15 @@ import { Routes, Route } from 'react-router-dom';
 import NotFound from './NotFound.jsx';
 import Home from './Home.jsx';
 import Login from './Login.jsx';
+import NavBar from './Navbar.jsx';
 
 const App = () => {
   return (
     <div>
       <Routes>
-        <Route path='/' element={<Login />}>
+        <Route path='/' element={<NavBar />}>
           <Route index element={<Login />} />
+          <Route path='/login' element={<Login />} />
           <Route path='/home' element={<Home />} />
           <Route path='*' element={<NotFound />} />
         </Route>
