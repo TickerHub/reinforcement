@@ -90,7 +90,7 @@ app.post('/users', (req, res) => {
 
 app.post('/fetch-data', async (req, res) => {
   const ticker = req.body.ticker; // Get the ticker from the POST request body.
-  const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${API_KEY}`;
+  const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${process.API_KEY}`;
   console.log(ticker);
   try {
     const response = await axios.get(url, {
