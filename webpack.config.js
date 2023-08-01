@@ -19,12 +19,7 @@ module.exports = {
     extensions: [".js", ".jsx"],
   },
   devServer: {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-      "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
-    },
-    allowedHosts: "all",
+    port: 8080,
     proxy: {
       "/api": {
         target: "http://localhost:8080",

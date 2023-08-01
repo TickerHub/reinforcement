@@ -1,37 +1,12 @@
-// import React from 'react';
-// import { Outlet, Link } from 'react-router-dom';
-
-// const NavBar = () => {
-//   return (
-//     <div data-theme='night'>
-//       <>
-//         <nav>
-//           <ul>
-//             <li>
-//               <Link to='/login'>Login</Link>
-//             </li>
-//             <li>
-//               <Link to='/home'>Home</Link>
-//             </li>
-//           </ul>
-//         </nav>
-//         <Outlet />
-//       </>
-//     </div>
-//   );
-// };
-
-// export default NavBar;
 import React from 'react';
-import { Fragment } from 'react';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Disclosure } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Outlet, Link } from 'react-router-dom';
-import Logo from '../../images/TickerHub-white (1).png';
+import Logo from '../../images/TickerHub-white.png';
 
 const navigation = [
-  { name: 'Home', href: '#', current: true },
-  { name: 'Login', href: '#', current: false },
+  { name: 'Home', current: false },
+  { name: 'Login', current: false },
 ];
 
 function classNames(...classes) {
