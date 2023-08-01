@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signInWithGoogle } from '../firebase.js';
-import Logo from '../../images/TickerHub-white (1).png';
+import Logo from '../../images/TickerHub-white.png';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -26,9 +26,9 @@ export default function Login() {
         <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
           <form className='space-y-6' action='#' method='POST'>
             <div className='flex justify-center'>
-              <button class='px-4 py-2 border flex gap-2 border-slate-200 rounded-lg text-slate-700 bg-slate-300 hover:border-slate-400 hover:text-slate-900 hover:shadow transition duration-150'>
+              <button className='px-4 py-2 border flex gap-2 border-slate-200 rounded-lg text-slate-700 bg-slate-300 hover:border-slate-400 hover:text-slate-900 hover:shadow transition duration-150'>
                 <img
-                  class='w-6 h-6'
+                  className='w-6 h-6'
                   src='https://www.svgrepo.com/show/475656/google-color.svg'
                   loading='lazy'
                   alt='google logo'

@@ -50,9 +50,7 @@ export default function NavBar() {
                   >
                     <span className='absolute -inset-1.5' />
                     <span className='sr-only'>View notifications</span>
-                    {/* <BellIcon className='h-6 w-6' aria-hidden='true' /> */}
                   </button>
-                  {/* Profile dropdown */}
                 </div>
               </div>
             </div>
