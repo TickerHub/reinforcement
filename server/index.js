@@ -1,17 +1,90 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 const path = require('path');
 const app = express();
 require('dotenv').config();
-const PORT = process.env.PORT || 3000;
-const API_KEY = process.env.API_KEY;
+const PORT = 3000;
 const axios = require('axios');
-const request = require('request');
+const sqlite3 = require('sqlite3').verbose();
+const {
+  db,
+  setupDatabase,
+  insertSampleData,
+  fetchSampleData,
+} = require('./sqliteDB.js'); // assuming database.js is in the same directory
 
 app.use('/', express.static(path.resolve(__dirname, '../build')));
 app.use(express.json());
 
 app.get('/', (request, response) => {
   response.send('Hello World!');
+});
+
+// SQLite-related endpoints
+app.get('/users', (req, res) => {
+  db.all(`SELECT id, name, email FROM users`, (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json(rows);
+  });
+});
+
+app.get('/posts', (req, res) => {
+  db.all(
+    `SELECT id, ticker, bullish, comment, votes, author_id, created_at FROM users`,
+    (err, rows) => {
+      if (err) {
+        res.status(500).json({ error: err.message });
+        return;
+      }
+      res.json(rows);
+    }
+  );
+});
+
+// app.get('/posts/:ticker', (req, res) => {
+//   db.all(
+//     `SELECT * FROM users WHERE name = '${req.params.ticker}';`,
+//     (err, rows) => {
+//       if (err) {
+//         res.status(500).json({ error: err.message });
+//         return;
+//       }
+//       res.json(rows);
+//     }
+//   );
+// });
+
+app.get('/posts/:Ticker', (req, res) => {
+  db.all(
+    `SELECT id, ticker, bullish, comment, votes, author_id, created_at FROM posts WHERE ticker = ?`,
+    [req.params.Ticker],
+    (err, rows) => {
+      if (err) {
+        res.status(500).json({ error: err.message });
+        return;
+      }
+      res.json(rows);
+    }
+  );
+});
+
+app.post('/users', (req, res) => {
+  const { name, email } = req.body;
+  db.run(
+    `INSERT INTO users (name, email) VALUES (?, ?)`,
+    [name, email],
+    function (err) {
+      if (err) {
+        res.status(500).json({ error: err.message });
+        return;
+      }
+      res.json({ id: this.lastID });
+    }
+  );
 });
 
 app.post('/fetch-data', async (req, res) => {
@@ -29,8 +102,8 @@ app.post('/fetch-data', async (req, res) => {
   }
 });
 
-app.get("/*", function (req, res) {
-  res.sendFile(path.resolve(__dirname, "../index.html"), function (err) {
+app.get('/*', function (req, res) {
+  res.sendFile(path.resolve(__dirname, '../index.html'), function (err) {
     if (err) {
       res.status(500).send(err);
     }
