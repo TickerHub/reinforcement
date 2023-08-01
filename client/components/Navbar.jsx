@@ -36,7 +36,7 @@ export default function NavBar() {
                 <div className='flex flex-1 items-center justify-center'>
                   <div className='flex items-center'>
                     <img
-                      className='h-20 w-auto'
+                      className='h-40 w-auto'
                       src={Logo}
                       alt='Your Company'
                     />
