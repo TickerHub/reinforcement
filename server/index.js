@@ -140,7 +140,7 @@ io.on("connection", (socket) => {
     console.log('Received an event: ' + event);
     io.emit('event', event);
   });
-
+});
 app.get("/*", function (req, res) {
   res.sendFile(path.resolve(__dirname, "../index.html"), function (err) {
     if (err) {
