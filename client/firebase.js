@@ -19,8 +19,18 @@ const provider = new GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' });
 export const signInWithGoogle = (setUser) => {
   return signInWithPopup(auth, provider)
-    .then((result) => {
+    .then(async (result) => {
       console.log(result.user);
+      const addUser = await fetch('/addUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: result.user.displayName,
+          email: result.user.email,
+        }),
+      });
       return result.user;
     })
     .catch((error) => {

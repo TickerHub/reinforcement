@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Chat from './Chatroom/Chat';
 import { useNavigate } from 'react-router-dom';
 
 export default function Home(props) {
@@ -45,6 +46,7 @@ export default function Home(props) {
           </label>
         </div>
       </div>
+      <Chat />
     </>
   );
 }
