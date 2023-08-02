@@ -15,7 +15,10 @@ const App = () => {
           <Route index element={<Login />} />
           <Route path='/Login' element={<Login />} />
           <Route path='/Ticker' element={<Ticker tickerData={tickerData} />} />
-          <Route path='/Home' element={<Home setTickerData={setTickerData} />} />
+          <Route
+            path='/Home'
+            element={<Home setTickerData={setTickerData} />}
+          />
           <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
