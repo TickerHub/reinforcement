@@ -9,6 +9,8 @@ export default function Ticker(props) {
     console.log(tickerData);
   }, []);
 
+  
+
   return (
     <>
       <div class='bg-white py-24 sm:py-32'>
