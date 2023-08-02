@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Chat from './Chatroom/Chat';
+import Chat from './Chatroom/Chat';
 
 export default function Home(props) {
   const { setTickerData } = props;
