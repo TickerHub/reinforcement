@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react';
 import Marquee from 'react-fast-marquee';
+import MessageBoard from './MessageBoard';
+import MessageForm from './MessageForm';
 
 export default function Ticker(props) {
   const { tickerData } = props;
   useEffect(() => {
     console.log(tickerData);
   }, []);
-
-  // const timeSeries = tickerData['Time Series (Daily)'].map((day) => {
-
-  // })
 
   return (
     <>
@@ -30,6 +28,10 @@ export default function Ticker(props) {
             </p>
           </div>
         </div>
+      </div>
+      <div className='space-y-4'>
+        <MessageForm />
+        <MessageBoard />
       </div>
     </>
   );

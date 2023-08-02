@@ -27,6 +27,28 @@ export default function Home(props) {
   };
 
   return (
+    <>
+      <div className='h-screen flex items-center justify-around'>
+        <h1 className='mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white'>
+          Select Ticker
+        </h1>
+        <div className='form-control w-full max-w-xs'>
+          <input
+            onChange={onChange}
+            type='text'
+            placeholder='ex: TSLA'
+            className='input input-bordered w-full max-w-xs'
+          />
+          <button
+            onClick={onSubmit}
+            type='submit'
+            className='bg-indigo-500 flex-none rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 !important'
+
+          >
+            Search
+          </button>
+        </div>
+      </div>
     <div className='h-screen flex flex-col items-center justify-around'>
       <h1 className='mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white'>
         Select Ticker
