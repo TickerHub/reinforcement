@@ -47,8 +47,8 @@ export default function Home(props) {
             Search
           </button>
         </div>
-        <Chat />
       </div>
+      <Chat />
     </>
   );
 }
