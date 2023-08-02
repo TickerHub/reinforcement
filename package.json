@@ -32,6 +32,7 @@
     "request": "^2.88.2",
     "sass": "^1.64.1",
     "sass-loader": "^13.3.2",
+    "socket.io": "^4.7.1",
     "socket.io-client": "^4.7.1",
     "sqlite3": "^5.1.6",
     "style-loader": "^3.3.3",
