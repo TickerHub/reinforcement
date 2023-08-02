@@ -1,9 +1,12 @@
 const express = require('express');
-const cors = require('cors');
 const path = require('path');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 const app = express();
-require('dotenv').config();
+require("dotenv").config();
 const PORT = 3000;
+
 const axios = require('axios');
 const cookieParser = require('cookie-parser');
 const Controller = require('./Controller');
@@ -23,8 +26,8 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
-app.get('/', (request, response) => {
-  response.send('Hello World!');
+app.get("/", (request, response) => {
+  response.send("Hello World!");
 });
 
 app.post('/addUsers', Controller.signIn, (req, res) => {
@@ -38,7 +41,7 @@ app.post('/addUsers', Controller.signIn, (req, res) => {
 });
 
 // SQLite-related endpoints
-app.get('/users', (req, res) => {
+app.get("/users", (req, res) => {
   db.all(`SELECT id, name, email FROM users`, (err, rows) => {
     if (err) {
       res.status(500).json({ error: err.message });
@@ -48,7 +51,7 @@ app.get('/users', (req, res) => {
   });
 });
 
-app.get('/posts', (req, res) => {
+app.get("/posts", (req, res) => {
   db.all(
     `SELECT id, ticker, bullish, comment, votes, author_id, created_at FROM users`,
     (err, rows) => {
@@ -74,7 +77,7 @@ app.get('/posts', (req, res) => {
 //   );
 // });
 
-app.get('/posts/:Ticker', (req, res) => {
+app.get("/posts/:Ticker", (req, res) => {
   db.all(
     `SELECT id, ticker, bullish, comment, votes, author_id, created_at FROM posts WHERE ticker = ?`,
     [req.params.Ticker],
@@ -88,7 +91,7 @@ app.get('/posts/:Ticker', (req, res) => {
   );
 });
 
-app.post('/users', (req, res) => {
+app.post("/users", (req, res) => {
   const { name, email } = req.body;
   db.run(
     `INSERT INTO users (name, email) VALUES (?, ?)`,
@@ -103,19 +106,19 @@ app.post('/users', (req, res) => {
   );
 });
 
-app.post('/fetch-data', async (req, res) => {
+app.post("/fetch-data", async (req, res) => {
   const ticker = req.body.ticker; // Get the ticker from the POST request body.
-  const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${API_KEY}`;
+  const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${process.API_KEY}`;
   console.log(ticker);
   try {
     const response = await axios.get(url, {
-      headers: { 'User-Agent': 'request' },
+      headers: { "User-Agent": "request" },
     });
     console.log(`Response:`, response.data);
     res.json(response.data);
   } catch (error) {
     console.log(error);
-    res.status(500).send('Error fetching data');
+    res.status(500).send("Error fetching data");
   }
 });
 

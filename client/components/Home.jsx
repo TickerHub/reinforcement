@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import Chat from './Chatroom/Chat';
-export default function Home() {
+import { useNavigate } from 'react-router-dom';
+
+export default function Home(props) {
+  const { setTickerData } = props
   const [ticker, setTicker] = useState('');
+  const navigate = useNavigate();
+
   const onSubmit = async (e) => {
     console.log(ticker);
     const res = await fetch('http://localhost:3000/fetch-data', {
@@ -12,8 +17,9 @@ export default function Home() {
       }),
     });
     const data = await res.json();
-    console.log(data);
-  };
+    setTickerData(data);
+    navigate('/Ticker');
+  }
 
   const onChange = (e) => {
     setTicker(e.target.value);
