@@ -1,35 +1,35 @@
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const express = require("express");
+const path = require("path");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 const app = express();
-require('dotenv').config();
+require("dotenv").config();
 const PORT = 3000;
 
-const axios = require('axios');
-const cookieParser = require('cookie-parser');
-const Controller = require('./Controller');
-const http = require('http');
-const { Server } = require('socket.io');
-const sqlite3 = require('sqlite3').verbose();
+const axios = require("axios");
+const cookieParser = require("cookie-parser");
+const Controller = require("./Controller");
+const http = require("http");
+const { Server } = require("socket.io");
+const sqlite3 = require("sqlite3").verbose();
 
 const {
   db,
   setupDatabase,
   insertSampleData,
   fetchSampleData,
-} = require('./sqliteDB.js');
+} = require("./sqliteDB.js");
 
-app.use(express.static(path.resolve(__dirname, '../build')));
+app.use(express.static(path.resolve(__dirname, "../build")));
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
-app.get('/', (request, response) => {
-  response.send('Hello World!');
+app.get("/", (request, response) => {
+  response.send("Hello World!");
 });
 
-app.post('/addUsers', Controller.signIn, (req, res) => {
+app.post("/addUsers", Controller.signIn, (req, res) => {
   db.all(`SELECT id, name, email FROM users`, (err, rows) => {
     if (err) {
       res.status(500).json({ error: err.message });
@@ -40,7 +40,7 @@ app.post('/addUsers', Controller.signIn, (req, res) => {
 });
 
 // SQLite-related endpoints
-app.get('/users', (req, res) => {
+app.get("/users", (req, res) => {
   db.all(`SELECT id, name, email FROM users`, (err, rows) => {
     if (err) {
       res.status(500).json({ error: err.message });
@@ -50,7 +50,7 @@ app.get('/users', (req, res) => {
   });
 });
 
-app.get('/posts', (req, res) => {
+app.get("/posts", (req, res) => {
   db.all(
     `SELECT id, ticker, bullish, comment, votes, author_id, created_at FROM users`,
     (err, rows) => {
@@ -76,7 +76,7 @@ app.get('/posts', (req, res) => {
 //   );
 // });
 
-app.get('/posts/:Ticker', (req, res) => {
+app.get("/posts/:Ticker", (req, res) => {
   db.all(
     `SELECT id, ticker, bullish, comment, votes, author_id, created_at FROM posts WHERE ticker = ?`,
     [req.params.Ticker],
@@ -90,7 +90,7 @@ app.get('/posts/:Ticker', (req, res) => {
   );
 });
 
-app.post('/users', (req, res) => {
+app.post("/users", (req, res) => {
   const { name, email } = req.body;
   db.run(
     `INSERT INTO users (name, email) VALUES (?, ?)`,
@@ -105,47 +105,51 @@ app.post('/users', (req, res) => {
   );
 });
 
-app.post('/fetch-data', async (req, res) => {
+app.post("/fetch-data", async (req, res) => {
   const ticker = req.body.ticker; // Get the ticker from the POST request body.
   const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${process.API_KEY}`;
   console.log(ticker);
   try {
     const response = await axios.get(url, {
-      headers: { 'User-Agent': 'request' },
+      headers: { "User-Agent": "request" },
     });
     console.log(`Response:`, response.data);
     res.json(response.data);
   } catch (error) {
     console.log(error);
-    res.status(500).send('Error fetching data');
+    res.status(500).send("Error fetching data");
   }
-});
-
-app.get('/*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
 });
 
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: '*',
-    methods: ['GET', 'POST'],
+    origin: "*",
+    methods: ["GET", "POST"],
   },
 });
 
-io.on('connection', (socket) => {
-  console.log('a user connected');
+io.on("connection", (socket) => {
+  console.log("a user connected");
 
   // No need to handle 'latest' here unless you've a specific use-case for it.
 
   // Handle incoming messages and broadcast them to all clients
-  socket.on('message', (message) => {
-    console.log('Received a message:', message.content);
-    io.emit('message', message);
+  socket.on("message", (message) => {
+    console.log("Received a message:", message.content);
+    io.emit("message", message);
   });
 
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
+});
+
+app.get("/*", function (req, res) {
+  res.sendFile(path.resolve(__dirname, "../index.html"), function (err) {
+    if (err) {
+      res.status(500).send(err);
+    }
   });
 });
 
