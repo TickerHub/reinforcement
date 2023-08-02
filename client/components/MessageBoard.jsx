@@ -2,11 +2,21 @@ import React from 'react';
 const date = new Date();
 export default function MessageBoard() {
   return (
-    <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
-      <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
-        <div className='container mx-auto'></div>
-        <p className='message__body p-10'>HERE IS WHRE THE MESSAGE WILL GO</p>
-        <p className='message__date p-10'>date</p>
+    <div
+      id='messages'
+      className='bg-white-100  p-4 md:px-0 flex flex-col items-center'
+    >
+      <div className='text-slate-50 card bg-base-200 transform-gpu transition-all duration-300 hover:-translate-y-2 hover:shadow-lg bg-base-200 mx-auto max-w-md p-4 rounded-lg'>
+        <div className='container bg-info p-6 rounded-lg '>
+          <p className='message__body '>HERE IS WHERE THE MESSAGE WILL GO</p>
+          <p className='message__date'>{date.toLocaleString()}</p>
+        </div>
+      </div>
+      <div className='text-slate-50 card bg-base-200 transform-gpu transition-all duration-300 hover:-translate-y-2 hover:shadow-lg bg-base-200 mx-auto max-w-md p-4 rounded-lg'>
+        <div className='container bg-slate-500 p-6 rounded-lg '>
+          <p className='message__body '>HERE IS WHERE THE MESSAGE WILL GO</p>
+          <p className='message__date'>date</p>
+        </div>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Home(props) {
-  const { setTickerData } = props
+  const { setTickerData } = props;
   const [ticker, setTicker] = useState('');
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ export default function Home(props) {
     const data = await res.json();
     setTickerData(data);
     navigate('/Ticker');
-  }
+  };
 
   const onChange = (e) => {
     setTicker(e.target.value);
@@ -38,11 +38,14 @@ export default function Home(props) {
             placeholder='ex: TSLA'
             className='input input-bordered w-full max-w-xs'
           />
-          <label className='label'>
-            <button className='label-text-alt' onClick={onSubmit}>
-              Search
-            </button>
-          </label>
+          <button
+            onClick={onSubmit}
+            type='submit'
+            className='bg-indigo-500 flex-none rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 !important'
+
+          >
+            Search
+          </button>
         </div>
       </div>
     </>
