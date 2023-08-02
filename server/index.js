@@ -134,7 +134,14 @@ io.on("connection", (socket) => {
 
   // No need to handle 'latest' here unless you've a specific use-case for it.
 
-  // No need to handle 'latest' here unless you've a specific use-case for it.
+    // Handle incoming messages and broadcast them to all clients
+  socket.on("message", (message) => {
+    console.log("Received a message:", message.content);
+    io.emit("message", message);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
 
   socket.on('event', (event) => {
     console.log('Received an event: ' + event);
