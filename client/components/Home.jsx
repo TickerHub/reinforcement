@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Chat from './Chatroom/Chat';
 export default function Home() {
   const [ticker, setTicker] = useState('');
   const onSubmit = async (e) => {
@@ -40,6 +40,7 @@ export default function Home() {
           </label>
         </div>
       </div>
+      <Chat />
     </>
   );
 }
