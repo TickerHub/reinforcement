@@ -9,10 +9,6 @@ export default function Ticker(props) {
     console.log(tickerData);
   }, []);
 
-  // const timeSeries = tickerData['Time Series (Daily)'].map((day) => {
-
-  // })
-
   return (
     <>
       <div class='bg-white py-24 sm:py-32'>
