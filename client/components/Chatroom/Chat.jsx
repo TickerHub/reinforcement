@@ -34,7 +34,7 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    const newSocket = socketIoClient('http://localhost:8000', {
+    const newSocket = socketIoClient('http://localhost:3000', {
       autoConnect: false,
     });
 
